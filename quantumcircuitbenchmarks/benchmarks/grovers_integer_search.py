@@ -14,7 +14,7 @@ class GroverIntegerSearch(cirq.Gate):
         self.vals = [int(i) for i in list(bin(val))[2:][::-1]]
 
         if num_rounds is None:
-            self.num_rounds = int(np.round(np.pi * np.sqrt(2 ** self.N) / 4, 0))
+            self.num_rounds = int(np.round(np.pi * 2 ** (self.N/2-2), 0))
         else:
             self.num_rounds = num_rounds
 
