@@ -153,13 +153,14 @@ class OrDirtyGate(cirq.Gate):
         yield cirq.X(target)
 
 
-def generate_dirty_multicontrol(n, m):
+def generate_dirty_multicontrol(n, m, to_toffoli=False):
     """
         n: number of controls + target
         m: number of ancilla
     """
     cmtg = CnXDirtyGate(num_controls=n-1, num_ancilla=m)
     c = reduce_circuit_or_op(
-            cmtg(*cirq.LineQubit.range(cmtg.num_qubits()))
+            cmtg(*cirq.LineQubit.range(cmtg.num_qubits())),
+            to_toffoli=False,
         )
     return c

@@ -204,12 +204,13 @@ for i in range(4, 9):
 	print(c)
 """
 
-def generate_incrementer_borrowedbit(r):
+def generate_incrementer_borrowedbit(r, to_toffoli=False):
     '''
         r: register size
     '''
     gate = IncrementLinearWithBorrowedBitGate(register_size=r)
     c = reduce_circuit_or_op(
-            gate(*cirq.LineQubit.range(gate.num_qubits()))
+            gate(*cirq.LineQubit.range(gate.num_qubits())),
+            to_toffoli=to_toffoli,
         )
     return c

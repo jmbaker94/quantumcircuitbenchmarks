@@ -77,12 +77,13 @@ class CnXLinearGate(ops.Gate):
 			yield ops.Z(qubits[i])**(1/(2**(len(qubits) - i)))
 		yield ops.Z(qubits[0])**(1/(2**(len(qubits) - 1)))
 
-def generate_cnx_linear(n):
+def generate_cnx_linear(n, to_toffoli=False):
     '''
         n: total number of qubits, including target
     '''
     gate = CnXLinearGate(reg_size=n)
     c = reduce_circuit_or_op(
-            gate(*cirq.LineQubit.range(gate.num_qubits()))
+            gate(*cirq.LineQubit.range(gate.num_qubits())),
+            to_toffoli=to_toffoli,
         )
     return c

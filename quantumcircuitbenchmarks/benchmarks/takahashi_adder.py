@@ -39,7 +39,7 @@ class TakahashiAdder(cirq.Gate):
             yield ops.CNOT(A[i], B[i])
 
                  
-def generate_takahashi_adder(n):
+def generate_takahashi_adder(n, to_toffoli=False):
     '''
         n: total size of circuit (each register is n / 2 sized)
     '''
@@ -48,6 +48,7 @@ def generate_takahashi_adder(n):
 
     gate = TakahashiAdder(n // 2)
     c = reduce_circuit_or_op(
-            gate(*cirq.LineQubit.range(gate.num_qubits()))
+            gate(*cirq.LineQubit.range(gate.num_qubits())),
+            to_toffoli=to_toffoli,
         )
     return c

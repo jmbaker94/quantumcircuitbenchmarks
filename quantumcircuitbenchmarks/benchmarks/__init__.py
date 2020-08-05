@@ -19,7 +19,7 @@ from .cnx_logdepth_with_ancilla import (
 )
 
 from .cuccaro_adder import (
-    generate_cuccaro_adder, 
+    generate_cuccaro_adder,
 )
 
 from .grovers_integer_search import (

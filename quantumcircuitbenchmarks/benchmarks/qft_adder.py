@@ -85,12 +85,13 @@ class QFTAdder(ops.Gate):
                 
 		yield cirq.inverse(self._apply_qft(A))
 
-def generate_qft_adder(n):
+def generate_qft_adder(n, to_toffoli=False):
 	if n % 2 != 0:
 		raise ValueError('Odd number of qubits')
 
 	gate = QFTAdder(n // 2)
 	c = reduce_circuit_or_op(
-			gate(*cirq.LineQubit.range(n))
+			gate(*cirq.LineQubit.range(n)),
+			to_toffoli=to_toffoli,
 		)
 	return c

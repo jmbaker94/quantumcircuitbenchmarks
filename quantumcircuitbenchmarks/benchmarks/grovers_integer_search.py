@@ -65,8 +65,9 @@ class GroverIntegerSearch(cirq.Gate):
             yield oracle()
             yield diffusion()
 
-            
-def generate_grover_integer_search_circuit(n, m, val, num_rounds=None):
+
+def generate_grover_integer_search_circuit(n, m, val, num_rounds=None,
+                                           to_toffoli=False):
     '''
         n: register size
         m: number of ancilla (clean)
@@ -75,6 +76,7 @@ def generate_grover_integer_search_circuit(n, m, val, num_rounds=None):
     '''
     gate = GroverIntegerSearch(N=n, m=m, val=val, num_rounds=num_rounds)
     c = reduce_circuit_or_op(
-            gate(*cirq.LineQubit.range(gate.num_qubits()))
+            gate(*cirq.LineQubit.range(gate.num_qubits())),
+            to_toffoli=to_toffoli,
         )
     return c

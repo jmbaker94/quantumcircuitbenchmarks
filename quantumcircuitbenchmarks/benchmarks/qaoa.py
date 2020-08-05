@@ -2,7 +2,7 @@ import cirq
 import networkx as nx
 from typing import Union
 
-def generate_QAOA_circuit(graph: nx.Graph, p : int):
+def generate_QAOA_circuit(graph:nx.Graph, p:int, to_toffoli=False):
     '''
         Doesn't actually generate any angles. This is more about compilation than execution.
         
@@ -29,8 +29,9 @@ def generate_QAOA_circuit(graph: nx.Graph, p : int):
             
     return c
 
-def generate_random_QAOA(N : int, prob : float, p : int, seed : Union[int, None]=None):
+def generate_random_QAOA(N:int, prob:float, p:int, seed:Union[int, None]=None,
+                         to_toffoli:bool=False):
 
     g = nx.fast_gnp_random_graph(n=N, p=prob, seed=seed)
     
-    return generate_QAOA_circuit(graph=g, p=p)
+    return generate_QAOA_circuit(graph=g, p=p, to_toffoli=to_toffoli)

@@ -25,11 +25,11 @@ class BernsteinVaziraniGate(cirq.Gate):
             yield cirq.H(qubit)
             
             
-def generate_bv(bit_string):
+def generate_bv(bit_string, to_toffoli=False):
     '''
         bit_string: list of 0, 1 values
     '''
     gate = BernsteinVaziraniGate(bit_string)
     qubits = cirq.LineQubit.range(gate.num_qubits())
-    return reduce_circuit_or_op(gate(*qubits))
+    return reduce_circuit_or_op(gate(*qubits), to_toffoli=to_toffoli)
     

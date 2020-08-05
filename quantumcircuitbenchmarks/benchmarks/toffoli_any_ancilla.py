@@ -239,13 +239,14 @@ class MultiControlGate(ops.Gate):
 			yield (cirq.inverse(self._prep_gates(qubits,n,m)))
 
 
-def generate_cnx_n_m(n, m):
+def generate_cnx_n_m(n, m, to_toffoli=False):
     '''
         n: number of controls + target
         m: number of ancilla (clean)
     '''
     cmtg = MultiControlGate(control_size=n - 1, ancilla_size=m)
     c = reduce_circuit_or_op(
-            cmtg(*cirq.LineQubit.range(cmtg.num_qubits()))
+            cmtg(*cirq.LineQubit.range(cmtg.num_qubits())),
+            to_toffoli=to_toffoli,
         )
     return c

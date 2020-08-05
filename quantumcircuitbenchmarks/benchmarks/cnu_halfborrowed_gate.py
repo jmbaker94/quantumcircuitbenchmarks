@@ -54,11 +54,11 @@ class CnUHalfBorrowedGate(ops.Gate):
                 yield ops.CCX(bits[i-2], bits[i-1], bits[i])
                 
 
-def generate_cnu_halfborrowed(n):
+def generate_cnu_halfborrowed(n, to_toffoli=False):
     '''
         n: total number of qubits, including target and ancilla
     '''
     gate = CnUHalfBorrowedGate(register_size=n)
     qubits = cirq.LineQubit.range(gate.num_qubits())
-    return reduce_circuit_or_op(gate(*qubits))
+    return reduce_circuit_or_op(gate(*qubits), to_toffoli=to_toffoli)
     

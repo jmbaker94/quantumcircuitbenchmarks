@@ -59,7 +59,7 @@ class CnXLogDepth(ops.Gate):
 			# Get the ancilla back
 			yield from cirq.inverse(store_gates)
 
-def generate_cnx_log_depth(r):
+def generate_cnx_log_depth(r, to_toffoli=False):
     '''
         r: total number of qubits, including ancilla and target
     '''
@@ -68,6 +68,7 @@ def generate_cnx_log_depth(r):
 
     gate = CnXLogDepth(register_size=(r+1)//2)
     c = reduce_circuit_or_op(
-            gate(*cirq.LineQubit.range(gate.num_qubits()))
+            gate(*cirq.LineQubit.range(gate.num_qubits())),
+            to_toffoli=to_toffoli,
         )
     return c

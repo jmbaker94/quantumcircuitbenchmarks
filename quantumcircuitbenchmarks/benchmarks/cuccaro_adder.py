@@ -108,7 +108,7 @@ class CuccaroAdder(ops.Gate):
 		yield self._uma_parallel([cin, B[0], A[0]])
 
 
-def generate_cuccaro_adder(n):
+def generate_cuccaro_adder(n, to_toffoli=False):
     '''
         n: total size of circuit (each register is (n-2) / 2 sized)
     '''
@@ -117,6 +117,7 @@ def generate_cuccaro_adder(n):
 
     gate = CuccaroAdder((n-2) // 2)
     c = reduce_circuit_or_op(
-            gate(*cirq.LineQubit.range(n))
+            gate(*cirq.LineQubit.range(n)),
+            to_toffoli=to_toffoli,
         )
     return c
