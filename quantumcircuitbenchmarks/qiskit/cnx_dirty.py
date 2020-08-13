@@ -1,5 +1,7 @@
 import qiskit
 
+from .cnx_halfdirty import cnx_halfdirty
+
 def cnx_any_dirty(circuit, controls, target, ancilla):
     def find_dirty(groups, g):
         d = []
@@ -82,5 +84,5 @@ def cnx_any_dirty(circuit, controls, target, ancilla):
 def generate_dirty_multicontrol(n, m):
     qs = list(range(n + m + 1))
     c = qiskit.circuit.QuantumCircuit(n + m + 1)
-    cnx_dirty(c, qs[:n], qs[n], qs[n+1:])
+    cnx_any_dirty(c, qs[:n], qs[n], qs[n+1:])
     return c

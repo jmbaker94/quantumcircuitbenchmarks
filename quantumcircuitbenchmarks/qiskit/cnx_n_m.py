@@ -207,7 +207,7 @@ def multicontrolgate(circuit, controls, target, clean_ancilla, dirty_ancilla):
         
         to_reverse = []
         
-        qubits = list(controls) + list(target) + list(clean_ancilla) + list(dirty_ancilla)
+        qubits = list(controls) + [target] + list(clean_ancilla) + list(dirty_ancilla)
         base_controls, base_target, base_ancilla, base_dirty = _prep_gates(qubits,n,m)
 
         if len(base_controls) == 2:

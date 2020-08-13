@@ -6,7 +6,6 @@ def qft_adder(c, a, b):
     
     qft = qiskit.circuit.library.basis_change.QFT(num_qubits=len(a))
     c.append(qft, a)
-    qft(a)
     a = a[::-1]
     
     for i in range(len(a)):
@@ -15,7 +14,7 @@ def qft_adder(c, a, b):
             
     a = a[::-1]
     qftinv = qiskit.circuit.library.basis_change.QFT(num_qubits=len(a), inverse=True)
-    c.append(qftiniv, a)
+    c.append(qftinv, a)
     
 
 def generate_qft_adder(n):

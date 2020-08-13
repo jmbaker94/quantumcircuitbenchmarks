@@ -1,4 +1,4 @@
-import cirq
+import qiskit
 import numpy as np
 
 from .cnx_n_m import multicontrolgate

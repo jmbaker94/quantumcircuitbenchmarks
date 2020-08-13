@@ -17,3 +17,10 @@ def bernstein_vazirani(c, register, hidden_bit_string):
             
     for q in register:
         c.h(q)
+        
+def generate_bv(bitstring):
+    c = qiskit.circuit.QuantumCircuit(len(bitstring) + 1)
+    qs = list(range(len(bitstring) + 1))
+    
+    bernstein_vazirani(c, qs, bitstring)
+    return c

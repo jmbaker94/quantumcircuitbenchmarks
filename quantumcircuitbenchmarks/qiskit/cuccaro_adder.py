@@ -29,6 +29,8 @@ def generate_cuccaro_adder(n):
     if n % 2 != 0:
         raise ValueError('Odd number of qubits')
         
+    c = qiskit.circuit.QuantumCircuit(n)
+        
     qs = list(range(n))
     cin = qs[0]
     cout = qs[-1]
