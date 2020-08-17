@@ -161,6 +161,6 @@ def generate_dirty_multicontrol(n, m, to_toffoli=False):
     cmtg = CnXDirtyGate(num_controls=n-1, num_ancilla=m)
     c = reduce_circuit_or_op(
             cmtg(*cirq.LineQubit.range(cmtg.num_qubits())),
-            to_toffoli=False,
+            to_toffoli=to_toffoli,
         )
     return c
