@@ -8,6 +8,8 @@ from qiskit.circuit import Parameter
 from qiskit.quantum_info import Pauli
 from itertools import combinations
 import random
+import qiskit
+from .cnx_n_m import *
 
 def get_max_independent_set_operator(num_nodes):
     """
@@ -83,14 +85,14 @@ def qaoa_mis(g, num_rounds, num_ancilla, maxn, max_anc_per_node):
                         anc.append(aqubits[curr_ancilla_index])
                         curr_ancilla_index = (curr_ancilla_index + 1) % len(aqubits)
                     
-                    QCB.acnx_n_m_maxn(mcircuit, [gqubits[q] for q in nl], target, anc, maxn)
+                    acnx_n_m_maxn(mcircuit, [gqubits[q] for q in nl], node, anc, maxn)
                 else:
                     anc = []
                     while len(anc) < max_anc_per_node:
                         anc.append(aqubits[curr_ancilla_index])
                         curr_ancilla_index = (curr_ancilla_index + 1) % len(aqubits)
                     
-                    QCB.acnx_n_m_maxn(mcircuit, [gqubits[q] for q in nl], target, anc, maxn)
+                    acnx_n_m_maxn(mcircuit, [gqubits[q] for q in nl], node, anc, maxn)
             
         
     # manually set up the initial state circuit
@@ -108,6 +110,6 @@ def qaoa_mis(g, num_rounds, num_ancilla, maxn, max_anc_per_node):
             evo_time=gamma, num_time_slices=1, quantum_registers=gqubits
         )
         # beta_parameter = mixer_circuit.parameters.pop() # checked in constructor that there's only one parameter
-        circuit += mcircuit.bind_parameters({beta: beta_val})
+        circuit += mcircuit# .bind_parameters({beta: beta_val})
         
     return circuit
