@@ -11,3 +11,4 @@ from .incrementer_borrowedbit import *
 from .qaoa import *
 from .qft_adder import *
 from .multicontrol_qaoa import *
+from .constrained_qaoa_mis import *

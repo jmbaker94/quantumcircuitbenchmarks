@@ -1,5 +1,6 @@
 import qiskit
 import numpy as np
+from .cnx_halfdirty import *
 
 def string_to_gate(circuit, s):
     if s[0] == 'toffoli':

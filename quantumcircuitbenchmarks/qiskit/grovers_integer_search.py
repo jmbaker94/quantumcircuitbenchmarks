@@ -1,9 +1,9 @@
 import qiskit
 import numpy as np
 
-from .cnx_n_m import multicontrolgate
+from .cnx_n_m import multicontrolgate, multicontrolgate_stop_early
 
-def grovers_integer_search(c, reg, ancilla, val, num_rounds=None):
+def grovers_integer_search(c, reg, ancilla, val, maxn=None, num_rounds=None):
     assert 0 <= val < 2 ** len(reg)
     
     N = len(reg)
@@ -23,7 +23,10 @@ def grovers_integer_search(c, reg, ancilla, val, num_rounds=None):
             if not v:
                 c.x(reg[i])
                 
-        multicontrolgate(c, reg[:-1], reg[-1], ancilla, [])
+        if maxn is not None:
+            multicontrolgate_stop_early(c, reg[:-1], reg[-1], ancilla, [], maxn)
+        else:
+            multicontrolgate(c, reg[:-1], reg[-1], ancilla, [])
         
         for i, v in enumerate(vals):
             if not v:
@@ -37,7 +40,12 @@ def grovers_integer_search(c, reg, ancilla, val, num_rounds=None):
             c.x(control)
             
         c.h(reg[-1])
-        multicontrolgate(c, reg[:-1], reg[-1], ancilla, [])
+        
+        if maxn is not None:
+            multicontrolgate_stop_early(c, reg[:-1], reg[-1], ancilla, [], maxn)
+        else:
+            multicontrolgate(c, reg[:-1], reg[-1], ancilla, [])
+            
         c.h(reg[-1])
         
         for control in reg:
@@ -52,7 +60,7 @@ def grovers_integer_search(c, reg, ancilla, val, num_rounds=None):
         diffusion()
 
 
-def generate_grover_integer_search_circuit(n, m, val, num_rounds=None):
+def generate_grover_integer_search_circuit(n, m, val, maxn=None, num_rounds=None):
     '''
         n: register size
         m: number of ancilla (clean)
@@ -61,5 +69,5 @@ def generate_grover_integer_search_circuit(n, m, val, num_rounds=None):
     '''
     qs = list(range(n + m))
     c = qiskit.circuit.QuantumCircuit(n + m)
-    grovers_integer_search(c, qs[:n], qs[n:], val, num_rounds)
+    grovers_integer_search(c, qs[:n], qs[n:], val, maxn, num_rounds)
     return c

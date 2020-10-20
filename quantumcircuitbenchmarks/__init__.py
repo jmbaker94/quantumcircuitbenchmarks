@@ -1,3 +1,3 @@
-from .cirq import *
+# from .cirq import *
 from .qiskit import *
 
