@@ -14,8 +14,8 @@ from .cnx_halfdirty import *
 from .cnx_logdepth import *
 from .cnx_inplace import *
 
-D = defaultdict()
-C = defaultdict()
+D = defaultdict(int)
+C = defaultdict(int)
 
 def multicontrolgate(circuit, controls, target, clean_ancilla, dirty_ancilla):
     
@@ -425,7 +425,6 @@ def multicontrolgate_stop_early(circuit, controls, target, clean_ancilla, dirty_
         
         qubits = list(controls) + [target] + list(clean_ancilla) + list(dirty_ancilla)
         base_controls, base_target, base_ancilla, base_dirty = _prep_gates(qubits,n,m)
-
         if len(base_controls) == 2:
             circuit.toffoli(base_controls[0], base_controls[1], target)
         elif len(base_controls) == 1:

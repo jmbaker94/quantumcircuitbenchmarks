@@ -73,10 +73,6 @@ def generate_QAOA_multicontrol_circuit(G: nx.Graph, p: int,
 
             mact(mixer_circuit, list(qu[x] for x in G.neighbors(u)), ancilla_for_rx, ancilla_for_multi_toffoli)
 
-    # Measurement circuit
-    measurement_circuit = QuantumCircuit(qu, ancilla_for_multi_toffoli, ancilla_for_rx, cu)
-    measurement_circuit.measure(qu, cu)
-
     # manually set up the initial state circuit
     initial_state_circuit = QuantumCircuit(qu)
 
@@ -104,8 +100,6 @@ def generate_QAOA_multicontrol_circuit(G: nx.Graph, p: int,
         )
         # beta_parameter = mixer_circuit.parameters.pop() # checked in constructor that there's only one parameter
         circuit += mixer_circuit.bind_parameters({beta: beta_val})
-    if measurement_circuit is not None:
-        circuit += measurement_circuit
 
     return circuit
 
@@ -136,7 +130,6 @@ def generate_random_multicontrol_qaoa(n, max_degree, p, prob,
             if degrees[e[0]] >= max_degree or degrees[e[1]] >= max_degree:
                 continue
             f = random.random()
-            print(f)
             if f < prob:
                 G.add_edge(*e)
                 degrees[e[0]] += 1
@@ -147,5 +140,4 @@ def generate_random_multicontrol_qaoa(n, max_degree, p, prob,
                     at_max.add(e[1])
 
     random.seed(angle_seed)
-    nx.draw(G)
     return generate_QAOA_multicontrol_circuit(G, p)
