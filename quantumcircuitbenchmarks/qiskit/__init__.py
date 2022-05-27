@@ -12,3 +12,7 @@ from .qaoa import *
 from .qft_adder import *
 from .multicontrol_qaoa import *
 from .constrained_qaoa_mis import *
+from .qram import *
+from .binary_welded_tree import *
+from .cylinder_qaoa import *
+from .torus_qaoa import *

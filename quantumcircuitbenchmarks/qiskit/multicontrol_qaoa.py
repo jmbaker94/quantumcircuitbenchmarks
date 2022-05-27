@@ -2,7 +2,7 @@ import numpy as np
 import networkx as nx
 import sys
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
-from qiskit.aqua.operators import WeightedPauliOperator
+#from qiskit.aqua.operators import WeightedPauliOperator
 from qiskit.circuit import Parameter
 from qiskit.quantum_info import Pauli
 from itertools import combinations

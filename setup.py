@@ -22,8 +22,8 @@ setup(
     long_description = long_desc,
     long_description_content_type = 'text/markdown',
     author = 'Jonathan M. Baker',
-    url = f'https://github.com/jmbaker94/{name}',
-    download_url = f'https://github.com/jmbaker94/{name}/archive/{version}.tar.gz',
+    url = 'https://github.com/jmbaker94/{}'.format(name),
+    download_url = 'https://github.com/jmbaker94/{}/archive/{}.tar.gz'.format(name, version),
     keywords = ['quantum computing', 'benchmark'],
     classifiers = [
         'License :: OSI Approved :: MIT License',
@@ -33,7 +33,6 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     install_requires = [
-        'cirq==0.8',
         'networkx',
     ],
 )

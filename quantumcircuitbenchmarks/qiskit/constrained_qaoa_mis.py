@@ -3,7 +3,7 @@ import numpy as np
 import networkx as nx
 import sys
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
-from qiskit.aqua.operators import WeightedPauliOperator
+#from qiskit.aqua.operators import WeightedPauliOperator
 from qiskit.circuit import Parameter
 from qiskit.quantum_info import Pauli
 from itertools import combinations
@@ -28,7 +28,7 @@ def get_max_independent_set_operator(num_nodes):
     shift = -num_nodes / 2
     return WeightedPauliOperator(paulis=pauli_list), shift
 
-def qaoa_mis(g, num_rounds, num_ancilla, maxn, max_anc_per_node):
+def qaoa_mis(g, num_rounds, num_ancilla, maxn, max_anc_per_node, seed=0xC0FFEE):
     '''
         g: graph to do MIS on
         num_rounds: number of times to repeat
@@ -40,6 +40,8 @@ def qaoa_mis(g, num_rounds, num_ancilla, maxn, max_anc_per_node):
     '''
     assert max_anc_per_node <= num_ancilla
     
+    random.seed(seed)
+
     def obj(x):
         return -sum(x)
     
@@ -92,7 +94,6 @@ def qaoa_mis(g, num_rounds, num_ancilla, maxn, max_anc_per_node):
                         anc.append(aqubits[curr_ancilla_index])
                         curr_ancilla_index = (curr_ancilla_index + 1) % len(aqubits)
                     
-                    print(len(anc))
                     acnx_n_m_maxn(mcircuit, [gqubits[q] for q in nl], node, anc, maxn)
             
         
@@ -155,8 +156,7 @@ def generate_random_qaoa_mis(n, max_gate_size, decomp_anc_n, max_degree, p, prob
                 if degrees[e[1]] >= max_degree:
                     at_max.add(e[1])
 
-    random.seed(angle_seed)
     if decomp_anc_n > n - data_qubits:
         decomp_anc_n = n - data_qubits
 
-    return qaoa_mis(G, p, n - data_qubits, max_gate_size, decomp_anc_n), G
+    return qaoa_mis(G, p, n - data_qubits, max_gate_size, decomp_anc_n, angle_seed)
