@@ -8,13 +8,10 @@ def bwt_level_qubits(levels, num_qubits, seed=0xDEADBEEF):
     for l in range(levels):
         if l == 0:
             continue
-        print(l)
         for val in range(0, 2**l):
             start = 1 if l == 1 else (2**(l - 1) + 1)
             current_node = start + val
             half_val = (current_node+1) // 2 - 1
-            print(half_val, current_node)
-            print(num_qubits - 1 - half_val, num_qubits - 1 - current_node)
             pairs.append((half_val, current_node))
             pairs.append((num_qubits - 1 - half_val, num_qubits - 1 - current_node))
     random.seed(seed)
