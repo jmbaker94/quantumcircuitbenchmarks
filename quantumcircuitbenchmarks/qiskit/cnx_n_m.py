@@ -453,10 +453,10 @@ def acnx_n_m_maxn(circuit, controls, target, ancilla, max_n):
         circuit.x(control)
             
 def generate_cnx_n_m(n, m):
-    qs = list(range(n + m))
-    c = qiskit.circuit.QuantumCircuit(n + m)
+    qs = list(range(n + m + 1))
+    c = qiskit.circuit.QuantumCircuit(n + m + 1)
     
-    multicontrolgate(c, qs[:n], [qs[n]], qs[n:], [])
+    multicontrolgate(c, qs[:n], [qs[n]], qs[n+1:], [])
     return c
                 
     
