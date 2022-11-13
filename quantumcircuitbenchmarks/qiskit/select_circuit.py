@@ -1,5 +1,6 @@
 import qiskit
 import numpy as np
+import random
 from itertools import product
             
 def generate_select_circuit(n, select_nums=None):
@@ -75,7 +76,13 @@ def generate_select_circuit(n, select_nums=None):
                 circuit.ccx(q, ancilla_qs[index-2], ancilla_qs[index-1])
                 if current_bitstring[index] == "0":
                     circuit.x(set_qs[index])
-        circuit.cx(ancilla_qs[-1], final_q)
+        r = random.randint(0, 2)
+        if r == 0:
+            circuit.cx(ancilla_qs[-1], final_q)
+        elif r == 1:
+            circuit.cz(ancilla_qs[-1], final_q)
+        elif r == 2:
+            circuit.cy(ancilla_qs[-1], final_q)
         previous = i
 
     # unset the last qubit
