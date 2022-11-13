@@ -16,3 +16,4 @@ from .qram import *
 from .binary_welded_tree import *
 from .cylinder_qaoa import *
 from .torus_qaoa import *
+from .select_circuit import *
