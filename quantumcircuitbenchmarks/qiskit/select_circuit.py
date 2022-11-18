@@ -43,15 +43,16 @@ def generate_select_circuit(n, select_nums=None):
                 break
 
             curr_loc = len(set_qs) - 1
-            for q in reversed(set_qs[loc+1:]):
-                if prev_bitstring[curr_loc] == "0":
-                    circuit.x(set_qs[curr_loc])
-                circuit.ccx(q, ancilla_qs[curr_loc-2], ancilla_qs[curr_loc-1])
-                if prev_bitstring[curr_loc] == "0":
-                    circuit.x(set_qs[curr_loc])
-                curr_loc -= 1
-                if curr_loc == 1:
-                    break
+            if curr_loc > 1:
+                for q in reversed(set_qs[loc+1:]):
+                    if prev_bitstring[curr_loc] == "0":
+                        circuit.x(set_qs[curr_loc])
+                    circuit.ccx(q, ancilla_qs[curr_loc-2], ancilla_qs[curr_loc-1])
+                    if prev_bitstring[curr_loc] == "0":
+                        circuit.x(set_qs[curr_loc])
+                    curr_loc -= 1
+                    if curr_loc == 1:
+                        break
 
             if loc > 1:
                 circuit.cx(set_qs[loc], ancilla_qs[loc-1])
